@@ -10,7 +10,10 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 	* println()
  
 ### To be implemented:
-* Basics
+* Functions
+	* millis()
+	* delay()
+* GPIO basics
 	* pinMode()
 	* digitalWrite()
 	* digitalRead()
@@ -32,7 +35,6 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 	* setTimeout()
 	* serialEvent()
 * SPI
-	* ()
 	* requestFrom()
 	* beginTransmission()
 	* endTransmission()
