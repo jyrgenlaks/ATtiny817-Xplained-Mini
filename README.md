@@ -1,2 +1,54 @@
 # ATtiny817-Xplained-Mini
-Peripheral drivers for the ATtiny817 Xplained Mini boards
+Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
+
+## Status
+### Currently implemented:
+* Serial
+    * begin()
+	* write()
+	* print()
+	* println()
+ 
+### To be implemented:
+* Basics
+	* pinMode()
+	* digitalWrite()
+	* digitalRead()
+	* analogRead()
+	* analogWrite()
+* Serial
+    * available()
+	* availableForWrite()
+	* end()
+	* find()
+	* findUntil()
+	* flush()
+	* parseFloat()
+	* parseInt()
+	* peek()
+	* read()
+	* readBytes()
+	* readBytesUntil()
+	* setTimeout()
+	* serialEvent()
+* SPI
+	* ()
+	* requestFrom()
+	* beginTransmission()
+	* endTransmission()
+	* write()
+	* available()
+	* read()
+	* SetClock()
+	* onReceive()
+	* onRequest()
+* I2C
+	* begin()
+	* end()
+	* beginTransaction()
+	* endTransaction()
+	* setBitOrder()
+	* setClockDivider()
+	* setDataMode()
+	* transfer()
+	* usingInterrupt()
