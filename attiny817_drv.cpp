@@ -54,14 +54,14 @@ void Serial::write(char c){
 	USART0.TXDATAL = c;
 }
 
-void Serial::print(char msg[]){
+void Serial::print(const char msg[]){
 	int i = 0;
 	while(msg[i]) {
 		write(msg[i++]);
 	}
 }
 
-void Serial::println(char msg[]){
+void Serial::println(const char msg[]){
 	print(msg);
 	write('\n');
 }

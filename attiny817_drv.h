@@ -13,8 +13,8 @@ class Serial {
 	public:
 		void begin(uint32_t baud_rate);
 		void write(char c);
-		void print(char msg[]);
-		void println(char msg[]);
+		void print(const char msg[]);
+		void println(const char msg[]);
 	
 	/*
 	To be implemented: Serial
