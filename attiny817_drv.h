@@ -9,25 +9,13 @@
 #ifndef ATTINY817_DRV_H_
 #define ATTINY817_DRV_H_
 
-/** GPIO */
-//void digitalWrite(uint8_t pin, uint8_t state);
-//void digitalRead(uint8_t pin);
-//void pinMode(uint8_t pin, uint8_t mode);
-
-
-/** ADC */
-//uint16_t analogRead(uint8_t channel);
-
-/** PWM */
-//void analogWrite(uint8_t pin, uint8_t value);
-
-/** Serial */
-void Serial_begin(uint32_t baud_rate);
-void Serial_write(char c);
-void Serial_print(char msg[]);
-void Serial_println(char msg[]);
-
-/*
+class Serial {
+	void begin(uint32_t baud_rate);
+	void write(char c);
+	void print(char msg[]);
+	void println(char msg[]);
+	
+	/*
 	To be implemented: Serial
 	available()
 	availableForWrite()
@@ -44,6 +32,24 @@ void Serial_println(char msg[]);
 	setTimeout()
 	serialEvent()
 */
+};
+
+void delay(uint32_t time_ms);
+
+/** GPIO */
+//void digitalWrite(uint8_t pin, uint8_t state);
+//void digitalRead(uint8_t pin);
+//void pinMode(uint8_t pin, uint8_t mode);
+
+
+/** ADC */
+//uint16_t analogRead(uint8_t channel);
+
+/** PWM */
+//void analogWrite(uint8_t pin, uint8_t value);
+
+
+
 
 /*
 	To be implemented: I2C (Wire)

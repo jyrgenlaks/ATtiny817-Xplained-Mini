@@ -1,6 +1,9 @@
 # ATtiny817-Xplained-Mini
 Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 
+## NB!
+* For UART to work, DTR must be enabled (when using the mEDBG programmer's USB2UART converter)
+
 ## Status
 ### Currently implemented:
 * Serial
