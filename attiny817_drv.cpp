@@ -8,6 +8,7 @@
 #define F_CPU 4000000
 #include <avr/io.h>
 #include <util/delay.h>
+#include "attiny817_drv.h"
 
 void Serial::begin(const uint32_t baud_rate){
 	PORTB.OUT &= ~(1 << 2);

@@ -10,10 +10,11 @@
 #define ATTINY817_DRV_H_
 
 class Serial {
-	void begin(uint32_t baud_rate);
-	void write(char c);
-	void print(char msg[]);
-	void println(char msg[]);
+	public:
+		void begin(uint32_t baud_rate);
+		void write(char c);
+		void print(char msg[]);
+		void println(char msg[]);
 	
 	/*
 	To be implemented: Serial
