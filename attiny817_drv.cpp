@@ -10,6 +10,35 @@
 #include <util/delay.h>
 #include "attiny817_drv.h"
 
+/********************************************************
+*  __     __                 _                          *
+*  \ \   / /   __ _   _ __  (_)   ___    _   _   ___    *
+*   \ \ / /   / _` | | '__| | |  / _ \  | | | | / __|   *
+*    \ V /   | (_| | | |    | | | (_) | | |_| | \__ \   *
+*     \_/     \__,_| |_|    |_|  \___/   \__,_| |___/   *
+*                                                       *
+********************************************************/
+
+void delay(uint32_t time_ms){
+	for(uint32_t i = 0; i < time_ms; i++){
+		_delay_ms(1);
+	}
+}
+
+long map(long x, long in_min, long in_max, long out_min, long out_max){
+  return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+
+/*******************************************
+*   ____                  _           _    *
+*  / ___|    ___   _ __  (_)   __ _  | |   *
+*  \___ \   / _ \ | '__| | |  / _` | | |   *
+*   ___) | |  __/ | |    | | | (_| | | |   *
+*  |____/   \___| |_|    |_|  \__,_| |_|   *
+*                                          *
+*******************************************/
+
 void Serial::begin(const uint32_t baud_rate){
 	PORTB.OUT &= ~(1 << 2);
 	PORTB.DIR |= (1 << 2);
@@ -35,11 +64,4 @@ void Serial::print(char msg[]){
 void Serial::println(char msg[]){
 	print(msg);
 	write('\n');
-}
-
-
-void delay(uint32_t time_ms){
-	for(uint32_t i = 0; i < time_ms; i++){
-		_delay_ms(1);
-	}
 }
