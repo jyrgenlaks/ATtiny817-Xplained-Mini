@@ -61,7 +61,45 @@ void Serial::print(const char msg[]){
 	}
 }
 
+void Serial::print(int32_t num){
+	// create a buffer for the individual digits
+	// since log10(2**32)=9.63... then 10 is sufficient
+	#define len 10
+	if(num < 0){
+		write('-');
+		num *= -1;
+	}
+	
+	char buf[len];
+	for(int8_t i = 0; i < len; i++){
+		buf[i] = num%10;
+		num /= 10;
+	}
+	
+	bool hasStartedWriting = 0;
+	for(int8_t i = len-1; i >= 0; i--){
+		if(buf[i] != 0){
+			hasStartedWriting = 1;
+		}
+		if(hasStartedWriting){
+			write('0' + buf[i]);
+		}
+	}
+	if(!hasStartedWriting){
+		write('0');
+	}
+}
+
 void Serial::println(const char msg[]){
 	print(msg);
+	write('\n');
+}
+
+void Serial::println(int32_t num){
+	print(num);
+	write('\n');
+}
+
+void Serial::println(){
 	write('\n');
 }

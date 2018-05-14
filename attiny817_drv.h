@@ -13,9 +13,15 @@ class Serial {
 	public:
 		void begin(uint32_t baud_rate);
 		void write(char c);
+		
+		void print(int32_t num);
 		void print(const char msg[]);
+		
+		void println();
+		void println(int32_t num);
 		void println(const char msg[]);
-	
+		
+		
 	/*
 	To be implemented: Serial
 	available()
