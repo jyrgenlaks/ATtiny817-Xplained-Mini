@@ -9,6 +9,7 @@
 #ifndef ATTINY817_DRV_H_
 #define ATTINY817_DRV_H_
 
+#include <inttypes.h>
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"

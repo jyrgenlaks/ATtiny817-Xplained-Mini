@@ -15,6 +15,8 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 	* map()
 * Serial
     * begin()
+	* available()
+	* read()
 	* write()
 	* print()
 	* println()
@@ -36,8 +38,7 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 	* analogReference()
 	* analogWrite()
 * Serial
-    * available()
-	* availableForWrite()
+    * availableForWrite()
 	* end()
 	* find()
 	* findUntil()
@@ -45,7 +46,6 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 	* parseFloat()
 	* parseInt()
 	* peek()
-	* read()
 	* readBytes()
 	* readBytesUntil()
 	* setTimeout()

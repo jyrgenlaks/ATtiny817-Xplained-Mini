@@ -9,9 +9,13 @@
 #ifndef ATTINY817_SERIAL_H_
 #define ATTINY817_SERIAL_H_
 
+#define RX_BUFFER_LENGTH 64
+
 class Serial {
 	public:
 		void begin(uint32_t baud_rate);
+		uint8_t available();
+		uint8_t read();
 		void write(char c);
 		
 		void print(int32_t num);
@@ -20,7 +24,7 @@ class Serial {
 		void println();
 		void println(int32_t num);
 		void println(const char msg[]);
-		
+	private:
 		
 	/*
 	To be implemented: Serial
