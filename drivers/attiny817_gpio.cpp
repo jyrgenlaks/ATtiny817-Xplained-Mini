@@ -1,9 +1,9 @@
 /*
- * attiny817_drv.cpp
+ * attiny817_gpio.cpp
  *
- * Created: 14-May-18 18:03:49
- *  Author: Myrka
- */ 
+ * Created: 29-Jul-18 14:06:44
+ *  Author: Jürgen Laks
+ */
 
 #include <avr/io.h>
 #include "attiny817_gpio.h"

@@ -9,57 +9,17 @@
 #ifndef ATTINY817_DRV_H_
 #define ATTINY817_DRV_H_
 
-#include "attiny817_gpio.h"
-
-class Serial {
-	public:
-		void begin(uint32_t baud_rate);
-		void write(char c);
-		
-		void print(int32_t num);
-		void print(const char msg[]);
-		
-		void println();
-		void println(int32_t num);
-		void println(const char msg[]);
-		
-		
-	/*
-	To be implemented: Serial
-	available()
-	availableForWrite()
-	end()
-	find()
-	findUntil()
-	flush()
-	parseFloat()
-	parseInt()
-	peek()
-	read()
-	readBytes()
-	readBytesUntil()
-	setTimeout()
-	serialEvent()
-*/
-};
+#include "drivers/attiny817_gpio.h"
+#include "drivers/attiny817_serial.h"
 
 void delay(uint32_t time_ms);
 long map(long x, long in_min, long in_max, long out_min, long out_max);
-
-/** GPIO */
-//void digitalWrite(uint8_t pin, uint8_t state);
-//void digitalRead(uint8_t pin);
-//void pinMode(uint8_t pin, uint8_t mode);
-
 
 /** ADC */
 //uint16_t analogRead(uint8_t channel);
 
 /** PWM */
 //void analogWrite(uint8_t pin, uint8_t value);
-
-
-
 
 /*
 	To be implemented: I2C (Wire)

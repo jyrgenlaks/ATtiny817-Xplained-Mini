@@ -1,10 +1,9 @@
 /*
- * attiny817_drv.h
+ * attiny817_gpio.h
  *
- * Created: 24-Apr-18 23:05:44
+ * Created: 29-Jul-18 14:06:44
  *  Author: Jürgen Laks
- */ 
-
+ */
 
 #ifndef ATTINY817_GPIO_H_
 #define ATTINY817_GPIO_H_
@@ -45,41 +44,4 @@ void digitalWrite(uint8_t pin, uint8_t state);
 void pinMode(uint8_t pin, uint8_t mode);
 uint8_t digitalRead(uint8_t pin);
 
-/** ADC */
-//uint16_t analogRead(uint8_t channel);
-
-/** PWM */
-//void analogWrite(uint8_t pin, uint8_t value);
-
-
-
-
-/*
-	To be implemented: I2C (Wire)
-	begin()
-	requestFrom()
-	beginTransmission()
-	endTransmission()
-	write()
-	available()
-	read()
-	SetClock()
-	onReceive()
-	onRequest()
-*/
-
-/*
-	To be implemented: SPI (Wire)
-	begin()
-	end()
-	beginTransaction()
-	endTransaction()
-	setBitOrder()
-	setClockDivider()
-	setDataMode()
-	transfer()
-	usingInterrupt()
-*/
-
-
-#endif /* ATTINY817_DRV_H_ */
+#endif /* ATTINY817_GPIO_H_ */
