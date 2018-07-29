@@ -9,6 +9,8 @@
 #ifndef ATTINY817_DRV_H_
 #define ATTINY817_DRV_H_
 
+#include "attiny817_gpio.h"
+
 class Serial {
 	public:
 		void begin(uint32_t baud_rate);
