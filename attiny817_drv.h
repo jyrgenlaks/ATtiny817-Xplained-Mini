@@ -11,9 +11,7 @@
 
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
-
-void delay(uint32_t time_ms);
-long map(long x, long in_min, long in_max, long out_min, long out_max);
+#include "drivers/attiny817_misc.h"
 
 /** ADC */
 //uint16_t analogRead(uint8_t channel);
