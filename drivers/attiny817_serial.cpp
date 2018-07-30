@@ -26,8 +26,7 @@ void Serial::begin(const uint32_t baud_rate){
 	PORTB.OUT &= ~(1 << 2);
 	PORTB.DIR |= (1 << 2);
 
-	BAUD = ((((64 / SAMPLES_PER_BIT) * F_CPU) / baud_rate) * (1024 + SIGROW.OSC20ERR5V)) / 1024;
-	USART0.BAUD = BAUD;
+	USART0.BAUD = ((((64 / SAMPLES_PER_BIT) * F_CPU) / baud_rate) * (1024 + SIGROW.OSC20ERR5V)) / 1024;
 	USART0.CTRLA = USART_RXCIE_bm;					// Enable RX interrupts
 	USART0.CTRLB = USART_TXEN_bm | USART_RXEN_bm;	// enable TX | enable RX
 	USART0.CTRLC = USART_CHSIZE_8BIT_gc;			// 8-bit characters
