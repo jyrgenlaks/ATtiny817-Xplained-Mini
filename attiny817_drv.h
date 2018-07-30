@@ -11,9 +11,14 @@
 
 #include <inttypes.h>
 #include <avr/interrupt.h>
+
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"
+
+// Defines for Arduino compatibility
+#define ARDUINO
+#define ARDUINO_ARCH_TINYAVR
 
 void hal_init(){
 	TCB0.CCMP = 2033;
