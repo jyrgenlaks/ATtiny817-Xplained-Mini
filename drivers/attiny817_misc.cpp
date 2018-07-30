@@ -10,20 +10,22 @@
 #include <avr/interrupt.h>
 #include "attiny817_misc.h"
 
-unsigned long millis_counter = 0;
+uint32_t millis_counter = 0;
 
 void delay(uint32_t time_ms){
-	for(uint32_t i = 0; i < time_ms; i++){
-		_delay_ms(1);
-	}
+	_delay_ms(time_ms);
 }
 
-long map(long x, long in_min, long in_max, long out_min, long out_max){
+long map(int32_t x, int32_t in_min, int32_t in_max, int32_t out_min, int32_t out_max){
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-unsigned long millis(){
-	return millis_counter;
+uint32_t millis(){
+	uint32_t milliseconds;
+	cli();
+	milliseconds = millis_counter;
+	sei();
+	return milliseconds;
 }
 
 ISR(TCB0_INT_vect){
