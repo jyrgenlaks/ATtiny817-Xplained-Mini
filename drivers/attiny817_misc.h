@@ -10,5 +10,6 @@
 
 void delay(uint32_t time_ms);
 long map(long x, long in_min, long in_max, long out_min, long out_max);
+unsigned long millis();
 
 #endif /* ATTINY817_MISC_H_ */

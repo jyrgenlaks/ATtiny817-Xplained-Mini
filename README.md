@@ -3,6 +3,7 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 
 ## NB!
 * For UART to work, DTR must be enabled (when using the mEDBG programmer's USB2UART converter)
+* For some utilities to work (for example, the millis() function), you need to call `hal_init()` at the start of the program!
 
 ## Status
 ### Currently implemented:
@@ -13,6 +14,7 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 * Misc. functions
 	* delay()
 	* map()
+	* millis()
 * Serial
     * begin()
 	* available()
@@ -24,7 +26,6 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 ### To be implemented:
 * Misc. functions
     * delayMicroseconds()
-	* millis()
 	* micros()
 * Math
 	* constrain()

@@ -10,9 +10,23 @@
 #define ATTINY817_DRV_H_
 
 #include <inttypes.h>
+#include <avr/interrupt.h>
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"
+
+void hal_init(){
+	TCB0.CCMP = 2033;
+	TCB0.CTRLA =	TCB_CLKSEL_CLKDIV2_gc | 
+					1 << TCB_ENABLE_bp | 
+					1 << TCB_RUNSTDBY_bp | 
+					1 << TCB_SYNCUPD_bp;
+	TCB0.INTCTRL = 0x01;
+	sei();
+}
+
+
+
 
 /** ADC */
 //uint16_t analogRead(uint8_t channel);
