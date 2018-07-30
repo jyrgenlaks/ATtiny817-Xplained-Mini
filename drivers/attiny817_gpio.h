@@ -41,6 +41,7 @@
 #define OUTPUT 1
 
 void digitalWrite(uint8_t pin, uint8_t state);
+void digitalToggle(uint8_t pin);
 void pinMode(uint8_t pin, uint8_t mode);
 uint8_t digitalRead(uint8_t pin);
 

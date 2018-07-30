@@ -37,6 +37,35 @@ void digitalWrite(uint8_t pin, uint8_t state){
 	}
 }
 
+void digitalToggle(uint8_t pin){
+	switch (pin){
+		case PIN_A0: PORTA.OUT ^= (1 << 0); break;
+		case PIN_A1: PORTA.OUT ^= (1 << 1); break;
+		case PIN_A2: PORTA.OUT ^= (1 << 2); break;
+		case PIN_A3: PORTA.OUT ^= (1 << 3); break;
+		case PIN_A4: PORTA.OUT ^= (1 << 4); break;
+		case PIN_A5: PORTA.OUT ^= (1 << 5); break;
+		case PIN_A6: PORTA.OUT ^= (1 << 6); break;
+		case PIN_A7: PORTA.OUT ^= (1 << 7); break;
+		
+		case PIN_B0: PORTB.OUT ^= (1 << 0); break;
+		case PIN_B1: PORTB.OUT ^= (1 << 1); break;
+		case PIN_B2: PORTB.OUT ^= (1 << 2); break;
+		case PIN_B3: PORTB.OUT ^= (1 << 3); break;
+		case PIN_B4: PORTB.OUT ^= (1 << 4); break;
+		case PIN_B5: PORTB.OUT ^= (1 << 5); break;
+		case PIN_B6: PORTB.OUT ^= (1 << 6); break;
+		case PIN_B7: PORTB.OUT ^= (1 << 7); break;
+		
+		case PIN_C0: PORTC.OUT ^= (1 << 0); break;
+		case PIN_C1: PORTC.OUT ^= (1 << 1); break;
+		case PIN_C2: PORTC.OUT ^= (1 << 2); break;
+		case PIN_C3: PORTC.OUT ^= (1 << 3); break;
+		case PIN_C4: PORTC.OUT ^= (1 << 4); break;
+		case PIN_C5: PORTC.OUT ^= (1 << 5); break;
+	}
+}
+
 uint8_t digitalRead(uint8_t pin){
 	switch (pin){
 		case PIN_A0: return !!(PORTA.IN & (1 << 0)); break;
