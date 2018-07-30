@@ -9,6 +9,7 @@ Arduino-like peripheral drivers for the ATtiny817 Xplained Mini boards
 ### Currently implemented:
 * GPIO basics
 	* digitalWrite()
+	* digitalToggle()
 	* digitalRead()
 	* pinMode()
 * Misc. functions
