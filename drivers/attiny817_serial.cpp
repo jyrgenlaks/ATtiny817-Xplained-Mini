@@ -20,13 +20,14 @@ volatile uint8_t rx_start_pos = 0;
 volatile uint8_t rx_end_pos = 0;
 volatile char rxBuffer[RX_BUFFER_LENGTH];
 
+#define SAMPLES_PER_BIT 16
 void Serial::begin(const uint32_t baud_rate){
 	cli();
 	PORTB.OUT &= ~(1 << 2);
 	PORTB.DIR |= (1 << 2);
 
-	// In theory, it should evaluate to 115 (@115200 baud), but for some reason mEDBG's CDC works better with 120
-	USART0.BAUD = 64/16*3333333/baud_rate + 5;		// set the baud rate
+	BAUD = ((((64 / SAMPLES_PER_BIT) * F_CPU) / baud_rate) * (1024 + SIGROW.OSC20ERR5V)) / 1024;
+	USART0.BAUD = BAUD;
 	USART0.CTRLA = USART_RXCIE_bm;					// Enable RX interrupts
 	USART0.CTRLB = USART_TXEN_bm | USART_RXEN_bm;	// enable TX | enable RX
 	USART0.CTRLC = USART_CHSIZE_8BIT_gc;			// 8-bit characters
