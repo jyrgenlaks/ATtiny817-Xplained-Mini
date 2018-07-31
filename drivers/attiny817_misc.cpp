@@ -13,7 +13,9 @@
 uint32_t millis_counter = 0;
 
 void delay(uint32_t time_ms){
-	_delay_ms(time_ms);
+	for(uint32_t i = 0; i < time_ms; i++){
+	    _delay_ms(1);
+	}
 }
 
 long map(int32_t x, int32_t in_min, int32_t in_max, int32_t out_min, int32_t out_max){
@@ -26,10 +28,6 @@ uint32_t millis(){
 	milliseconds = millis_counter;
 	sei();
 	return milliseconds;
-}
-
-void delayMicroseconds(uint32_t time_us){
-    _delay_us(time_us);
 }
 
 ISR(TCB0_INT_vect){
