@@ -4,12 +4,11 @@
  * Created: 29-Jul-18 14:25:44
  *  Author: Jürgen Laks
  */
-
-#define F_CPU (3333000UL)
+ 
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "attiny817_misc.h"
-
+uint16_t _counter = 0;
 uint32_t millis_counter = 0;
 
 void delay(uint32_t time_ms){
@@ -30,7 +29,19 @@ uint32_t millis(){
 	return milliseconds;
 }
 
+uint32_t micros(){
+	uint32_t microseconds;
+	cli();
+	microseconds = (millis_counter * 1000) + (_counter * 100);
+	sei();
+	return microseconds;
+}
+
 ISR(TCB0_INT_vect){
 	TCB0.INTFLAGS = TCB_CAPT_bm;
-	++millis_counter;
+	++_counter;
+	while(_counter > 10){
+		++millis_counter;
+		_counter -= 10;
+	}		
 }

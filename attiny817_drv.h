@@ -5,7 +5,6 @@
  *  Author: Jürgen Laks
  */ 
 
-
 #ifndef ATTINY817_DRV_H_
 #define ATTINY817_DRV_H_
 
@@ -22,8 +21,11 @@
 #define ARDUINO
 #define ARDUINO_ARCH_TINYAVR
 
+// Define system cpu frequency
+#define F_CPU (3333000UL)
+
 void hal_init(){
-	TCB0.CCMP = 1667;
+	TCB0.CCMP = (F_CPU / 6 / 2 / 10000);
 	TCB0.CTRLA =	TCB_CLKSEL_CLKDIV2_gc | 
 					1 << TCB_ENABLE_bp | 
 					1 << TCB_RUNSTDBY_bp | 
