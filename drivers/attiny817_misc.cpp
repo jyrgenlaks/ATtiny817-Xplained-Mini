@@ -5,7 +5,7 @@
  *  Author: Jürgen Laks
  */
 
-#define F_CPU 4000000
+#define F_CPU (3333000UL)
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "attiny817_misc.h"
@@ -26,6 +26,10 @@ uint32_t millis(){
 	milliseconds = millis_counter;
 	sei();
 	return milliseconds;
+}
+
+void delayMicroseconds(uint32_t time_us){
+    _delay_us(time_us);
 }
 
 ISR(TCB0_INT_vect){
