@@ -11,17 +11,19 @@
 
 #include <inttypes.h>
 #include <avr/interrupt.h>
+#include <stdint.h>
 
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"
+#include "SPI.h"
 
 // Defines for Arduino compatibility
 #define ARDUINO
 #define ARDUINO_ARCH_TINYAVR
 
 void hal_init(){
-	TCB0.CCMP = 2033;
+	TCB0.CCMP = 1667;
 	TCB0.CTRLA =	TCB_CLKSEL_CLKDIV2_gc | 
 					1 << TCB_ENABLE_bp | 
 					1 << TCB_RUNSTDBY_bp | 
