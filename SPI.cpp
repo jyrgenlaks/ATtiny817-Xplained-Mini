@@ -22,6 +22,8 @@ void SPIClass::writeBytes(const uint8_t * data, uint32_t size){
 }
 
 void SPIClass::transferBytes(const uint8_t * out, uint8_t * in, uint32_t size){
+	// TODO:
+	SPI_0_exchange_block(in, size):
     
 }
 
