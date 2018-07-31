@@ -43,5 +43,5 @@ ISR(TCB0_INT_vect){
 	while(_counter > 10){
 		++millis_counter;
 		_counter -= 10;
-	}		
+	}
 }
