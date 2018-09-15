@@ -15,7 +15,6 @@
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"
-#include "SPI.h"
 
 // Defines for Arduino compatibility
 #define ARDUINO
@@ -24,7 +23,7 @@
 // Define system cpu frequency
 #define F_CPU (3333000UL)
 
-void hal_init(){
+inline void hal_init(){
 	TCB0.CCMP = (F_CPU / 6 / 2 / 10000);
 	TCB0.CTRLA =	TCB_CLKSEL_CLKDIV2_gc | 
 					1 << TCB_ENABLE_bp | 

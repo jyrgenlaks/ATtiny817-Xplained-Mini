@@ -7,6 +7,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "../attiny817_drv.h"
 #include "attiny817_serial.h"
 
 #define RX_BUFFER_MASK ( RX_BUFFER_LENGTH - 1)
