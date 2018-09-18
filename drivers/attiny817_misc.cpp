@@ -13,8 +13,9 @@ uint16_t _counter = 0;
 uint32_t millis_counter = 0;
 
 void delay(uint32_t time_ms){
-	for(uint32_t i = 0; i < time_ms; i++){
-	    _delay_ms(1);
+	uint32_t starttime = millis();
+	while(starttime + time_ms > millis()){
+		/* do nothing*/
 	}
 }
 

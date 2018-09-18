@@ -30,6 +30,7 @@ inline void hal_init(){
 					1 << TCB_RUNSTDBY_bp | 
 					1 << TCB_SYNCUPD_bp;
 	TCB0.INTCTRL = 0x01;
+	
 	sei();
 }
 
