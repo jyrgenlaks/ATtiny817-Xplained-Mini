@@ -4,7 +4,8 @@
  * Created: 29-Jul-18 14:25:44
  *  Author: Jürgen Laks
  */
- 
+
+#define F_CPU 3333000
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "attiny817_misc.h"
