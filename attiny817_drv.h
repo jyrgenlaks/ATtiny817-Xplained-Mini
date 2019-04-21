@@ -16,26 +16,22 @@
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"
 
-// Defines for Arduino compatibility
-#define ARDUINO
-#define ARDUINO_ARCH_TINYAVR
-
-// Define system cpu frequency
-#define F_CPU (3333000UL)
+// Define system CPU frequency
+#define F_CPU (20000000UL)
 
 inline void hal_init(){
-	TCB0.CCMP = (F_CPU / 6 / 2 / 10000);
-	TCB0.CTRLA =	TCB_CLKSEL_CLKDIV2_gc | 
-					1 << TCB_ENABLE_bp | 
-					1 << TCB_RUNSTDBY_bp | 
-					1 << TCB_SYNCUPD_bp;
-	TCB0.INTCTRL = 0x01;
+
+	// Clock setup
+	CPU_CCP = 0xD8; // Disable write-protect from clock registers
+	CLKCTRL.MCLKCTRLB = 0; // disable clkdiv to get 20MHz clock speed
+
+	// RTC setup
+	RTC.CTRLA = RTC_PRESCALER_DIV1_gc | RTC_RTCEN_bm; // Enable RTC and set the clock prescaler
+	RTC.INTCTRL = RTC_OVF_bm;
+	RTC.CLKSEL = RTC_CLKSEL_INT32K_gc; // Set clock to 32.768kHz from XOSC32K
 	
 	sei();
 }
-
-
-
 
 /** ADC */
 //uint16_t analogRead(uint8_t channel);
