@@ -12,12 +12,18 @@
 #include <avr/interrupt.h>
 #include <stdint.h>
 
+// Define system CPU frequency
+#define F_CPU (20000000UL)
+
+#define _BV(bit) (1 << (bit))
+#define noInterrupts() cli()
+#define enableInterrupts() sei()
+
 #include "drivers/attiny817_gpio.h"
 #include "drivers/attiny817_serial.h"
 #include "drivers/attiny817_misc.h"
+#include "drivers/attiny817_SPI.h"
 
-// Define system CPU frequency
-#define F_CPU (20000000UL)
 
 inline void hal_init(){
 

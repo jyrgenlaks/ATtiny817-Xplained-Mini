@@ -8,6 +8,8 @@
 #ifndef ATTINY817_GPIO_H_
 #define ATTINY817_GPIO_H_
 
+#include <inttypes.h>
+
 #define PIN_B3 1
 #define PIN_B2 2
 #define PIN_B4 3
