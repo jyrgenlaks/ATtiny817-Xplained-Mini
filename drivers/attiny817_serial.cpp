@@ -75,31 +75,55 @@ void UART::print_P(const char *str){
 }
 
 void UART::print(int32_t num){
-	// create a buffer for the individual digits
-	// since log10(2**32)=9.63... then 10 is sufficient
-	#define len 10
-	if(num < 0){
-		write('-');
-		num *= -1;
-	}
-	
-	char buf[len];
-	for(int8_t i = 0; i < len; i++){
-		buf[i] = num%10;
-		num /= 10;
-	}
-	
-	bool hasStartedWriting = 0;
-	for(int8_t i = len-1; i >= 0; i--){
-		if(buf[i] != 0){
-			hasStartedWriting = 1;
+	print(num, DEC);
+}
+
+void UART::print(int32_t num, uint8_t base){
+	if(base == DEC){
+		// create a buffer for the individual digits
+		// since log10(2**32)=9.63... then 10 is sufficient
+		#define len 10
+		if(num < 0){
+			write('-');
+			num *= -1;
 		}
-		if(hasStartedWriting){
-			write('0' + buf[i]);
+	
+		char buf[len];
+		for(int8_t i = 0; i < len; i++){
+			buf[i] = num%10;
+			num /= 10;
 		}
-	}
-	if(!hasStartedWriting){
-		write('0');
+	
+		bool hasStartedWriting = 0;
+		for(int8_t i = len-1; i >= 0; i--){
+			if(buf[i] != 0){
+				hasStartedWriting = 1;
+			}
+			if(hasStartedWriting){
+				write('0' + buf[i]);
+			}
+		}
+		if(!hasStartedWriting){
+			write('0');
+		}
+	}else if(base == HEX){
+		for(int i = 0; i < 8; i++){
+			uint8_t part = (   num >> (4*(7-i))   ) & 0x0F;
+
+			if(part < 10){
+				write('0' + part);
+			}else{
+				write('A' - 10 + part);
+			}
+		}
+	}else if(base == BIN){
+		for(int i = 0; i < 32; i++){
+			if(num & (1 << (31-i))){
+				write('1');
+			}else{
+				write('0');
+			}
+		}
 	}
 }
 

@@ -13,6 +13,9 @@
 #define F(string_literal) (PSTR(string_literal))
 
 #define RX_BUFFER_LENGTH 64
+#define BIN 2
+#define DEC 10
+#define HEX 16
 
 class UART {
 	public:
@@ -22,10 +25,12 @@ class UART {
 		void write(char c);
 		
 		void print(int32_t num);
+		void print(int32_t num, uint8_t base);
 		void print(const char msg[]);
 		
 		void println();
 		void println(int32_t num);
+		void println(int32_t num, uint8_t base);
 		void println(const char msg[]);
 
 		void print_P(const char *str);
