@@ -9,9 +9,12 @@
 #ifndef ATTINY817_SERIAL_H_
 #define ATTINY817_SERIAL_H_
 
+#include <avr/pgmspace.h>
+#define F(string_literal) (PSTR(string_literal))
+
 #define RX_BUFFER_LENGTH 64
 
-class Serial {
+class UART {
 	public:
 		void begin(uint32_t baud_rate);
 		uint8_t available();
@@ -24,6 +27,10 @@ class Serial {
 		void println();
 		void println(int32_t num);
 		void println(const char msg[]);
+
+		void print_P(const char *str);
+		void println_P(const char *str);
+		
 	private:
 		
 	/*
@@ -44,5 +51,7 @@ class Serial {
 	serialEvent()
 */
 };
+
+extern UART Serial;
 
 #endif /* ATTINY817_SERIAL_H_ */

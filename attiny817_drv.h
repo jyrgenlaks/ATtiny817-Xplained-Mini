@@ -24,7 +24,6 @@
 #include "drivers/attiny817_misc.h"
 #include "drivers/attiny817_SPI.h"
 
-
 inline void hal_init(){
 
 	// Clock setup

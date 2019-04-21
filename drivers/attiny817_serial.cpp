@@ -22,7 +22,7 @@ volatile uint8_t rx_end_pos = 0;
 volatile char rxBuffer[RX_BUFFER_LENGTH];
 
 #define SAMPLES_PER_BIT 16
-void Serial::begin(const uint32_t baud_rate){
+void UART::begin(const uint32_t baud_rate){
 	cli();
 	PORTB.OUT &= ~(1 << 2);
 	PORTB.DIR |= (1 << 2);
@@ -35,7 +35,7 @@ void Serial::begin(const uint32_t baud_rate){
 	sei();
 }
 
-uint8_t Serial::available(){
+uint8_t UART::available(){
 	if(rx_start_pos <= rx_end_pos){
 		return rx_end_pos - rx_start_pos;
 	}else{
@@ -44,7 +44,7 @@ uint8_t Serial::available(){
 	}
 }
 
-uint8_t Serial::read(){
+uint8_t UART::read(){
 	if(rx_start_pos != rx_end_pos){
 		rx_start_pos = (rx_start_pos + 1) & RX_BUFFER_MASK;
 		return rxBuffer[rx_start_pos];
@@ -53,19 +53,28 @@ uint8_t Serial::read(){
 	}
 }
 
-void Serial::write(char c){
+void UART::write(char c){
 	while (  !(USART0.STATUS & USART_DREIF_bm)   );
 	USART0.TXDATAL = c;
 }
 
-void Serial::print(const char msg[]){
+void UART::print(const char msg[]){
 	int i = 0;
 	while(msg[i]) {
 		write(msg[i++]);
 	}
 }
 
-void Serial::print(int32_t num){
+void UART::print_P(const char *str){
+	int i = 0;
+	char byte = pgm_read_byte(&str[i++]);
+	while(byte) {
+		write(byte);
+		byte = pgm_read_byte(&str[i++]);
+	}
+}
+
+void UART::print(int32_t num){
 	// create a buffer for the individual digits
 	// since log10(2**32)=9.63... then 10 is sufficient
 	#define len 10
@@ -94,17 +103,22 @@ void Serial::print(int32_t num){
 	}
 }
 
-void Serial::println(const char msg[]){
+void UART::println(const char msg[]){
 	print(msg);
 	write('\n');
 }
 
-void Serial::println(int32_t num){
+void UART::println_P(const char *str){
+	print_P(str);
+	write('\n');
+}
+
+void UART::println(int32_t num){
 	print(num);
 	write('\n');
 }
 
-void Serial::println(){
+void UART::println(){
 	write('\n');
 }
 
@@ -123,3 +137,5 @@ ISR(USART0_RXC_vect){
 		USART0.RXDATAL;
 	}
 }
+
+UART Serial;
