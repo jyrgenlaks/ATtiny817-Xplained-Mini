@@ -25,12 +25,22 @@ When doing pin-planning with the Xplained mini board, the following things shoul
 	* map()
 	* millis()
 * Serial
-    * begin()
+	* begin()
 	* available()
 	* read()
 	* write()
 	* print()
 	* println()
+
+* SPI
+	* begin()
+	* beginTransaction()
+	* transfer()
+	* transfer16() [not tested]
+	* endTransaction()
+	* setBitOrder()
+	* end()
+	
  
 ### To be implemented:
 * Misc. functions
@@ -60,16 +70,6 @@ When doing pin-planning with the Xplained mini board, the following things shoul
 	* readBytesUntil()
 	* setTimeout()
 	* serialEvent()
-* SPI
-	* requestFrom()
-	* beginTransmission()
-	* endTransmission()
-	* write()
-	* available()
-	* read()
-	* SetClock()
-	* onReceive()
-	* onRequest()
 * I2C
 	* begin()
 	* end()
