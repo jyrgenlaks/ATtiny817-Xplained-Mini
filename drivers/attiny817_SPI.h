@@ -25,7 +25,7 @@
 #define SCK  PIN_A3
 #define MISO PIN_A2
 #define MOSI PIN_A1
-#define SS   PIN_C0
+#define SS   PIN_B5
 
 // SPI_HAS_TRANSACTION means SPI has beginTransaction(), endTransaction(),
 // usingInterrupt(), and SPISetting(clock, bitOrder, dataMode)
@@ -115,6 +115,7 @@ private:
 
     // Pack into the SPISettings class
 	ctrla = ((bitOrder == LSBFIRST) ? SPI_DORD_bm : 0) | SPI_MASTER_bm | (clockDiv << 1) | SPI_ENABLE_bm;
+	ctrlb = SPI_SSD_bm;
   }
   uint8_t ctrla;
   uint8_t ctrlb;
@@ -169,7 +170,9 @@ public:
     inTransactionFlag = 1;
     #endif
 
+	
 	SPI0.CTRLA = settings.ctrla;
+	SPI0.CTRLB = settings.ctrlb;
     //SPCR = settings.spcr;
     //SPSR = settings.spsr;
   }
@@ -184,8 +187,12 @@ public:
      * speeds it is unnoticed.
      */
     asm volatile("nop");
-    //while (!(SPSR & _BV(SPIF))) ; // wait
-	while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+
+	while (!(SPI0.INTFLAGS & SPI_IF_bm)) ;
+	// The interrupt flag is cleared "automatically" by
+	//   1) first reading the SPI0.INTFLAGS register (in the while loop during the last iteration)
+	//   2) and then reading the contents of SPI0.DATA (during the return statement)
+	// So in other words no explicit statement is needed for clearing the flag
     return SPI0.DATA;
   }
 
@@ -197,23 +204,27 @@ public:
       SPI0.DATA = in.msb;
       asm volatile("nop"); // See transfer(uint8_t) function
       //while (!(SPSR & _BV(SPIF))) ;
-	  while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+	  while (!(SPI0.INTFLAGS & SPI_IF_bm)) ; // wait
+	  SPI0.INTFLAGS |= SPI_TXCIF_bm; // Clear the interrupt flag
       out.msb = SPI0.DATA;
       SPI0.DATA = in.lsb;
       asm volatile("nop");
       //while (!(SPSR & _BV(SPIF))) ;
-	  while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+	  while (!(SPI0.INTFLAGS & SPI_IF_bm)) ; // wait
+	  SPI0.INTFLAGS |= SPI_TXCIF_bm; // Clear the interrupt flag
       out.lsb = SPI0.DATA;
     } else {
       SPI0.DATA = in.lsb;
       asm volatile("nop");
       //while (!(SPSR & _BV(SPIF))) ;
-	  while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+	  while (!(SPI0.INTFLAGS & SPI_IF_bm)) ; // wait
+	  SPI0.INTFLAGS |= SPI_TXCIF_bm; // Clear the interrupt flag
       out.lsb = SPI0.DATA;
       SPI0.DATA = in.msb;
       asm volatile("nop");
       //while (!(SPSR & _BV(SPIF))) ;
-	  while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+	  while (!(SPI0.INTFLAGS & SPI_IF_bm)) ; // wait
+	  SPI0.INTFLAGS |= SPI_TXCIF_bm; // Clear the interrupt flag
       out.msb = SPI0.DATA;
     }
     return out.val;
@@ -225,13 +236,15 @@ public:
     while (--count > 0) {
       uint8_t out = *(p + 1);
       //while (!(SPSR & _BV(SPIF))) ;
-	  while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+	  while (!(SPI0.INTFLAGS & SPI_IF_bm)) ; // wait
+	  SPI0.INTFLAGS |= SPI_TXCIF_bm; // Clear the interrupt flag
       uint8_t in = SPI0.DATA;
       SPI0.DATA = out;
       *p++ = in;
     }
     //while (!(SPSR & _BV(SPIF))) ;
-	while (!(SPI0.INTCTRL & SPI_TXCIE_bm)) ; // wait
+	while (!(SPI0.INTFLAGS & SPI_IF_bm)) ; // wait
+	SPI0.INTFLAGS |= SPI_TXCIF_bm; // Clear the interrupt flag
     *p = SPI0.DATA;
   }
   // After performing a group of transfers and releasing the chip select

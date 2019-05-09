@@ -48,6 +48,7 @@ void SPIClass::begin()
     // automatically switches to Slave, so the data direction of
     // the SS pin MUST be kept as OUTPUT.
     //SPCR |= _BV(MSTR);
+	SPI0.CTRLB |= SPI_SSD_bm;
     SPI0.CTRLA |= SPI_MASTER_bm;
 	//SPCR |= _BV(SPE);
 	SPI0.CTRLA |= SPI_ENABLE_bm;
