@@ -36,13 +36,13 @@ void SPIClass::begin()
     // if the SS pin is not already configured as an output
     // then set it high (to enable the internal pull-up resistor)
     //if(!(*reg & bit)){
-      digitalWrite(SS, HIGH);
+    //digitalWrite(SS, HIGH);
     //}
 
     // When the SS pin is set as OUTPUT, it can be used as
     // a general purpose output port (it doesn't influence
     // SPI operations).
-    pinMode(SS, OUTPUT);
+    //pinMode(SS, OUTPUT);
 
     // Warning: if the SS pin ever becomes a LOW INPUT then SPI
     // automatically switches to Slave, so the data direction of
@@ -52,16 +52,6 @@ void SPIClass::begin()
     SPI0.CTRLA |= SPI_MASTER_bm;
 	//SPCR |= _BV(SPE);
 	SPI0.CTRLA |= SPI_ENABLE_bm;
-	
-
-    // Set direction register for SCK and MOSI pin.
-    // MISO pin automatically overrides to INPUT.
-    // By doing this AFTER enabling SPI, we avoid accidentally
-    // clocking in a single bit since the lines go directly
-    // from "input" to SPI control.
-    // http://code.google.com/p/arduino/issues/detail?id=888
-    pinMode(SCK, OUTPUT);
-    pinMode(MOSI, OUTPUT);
   }
   initialized++; // reference count
   SREG = sreg;

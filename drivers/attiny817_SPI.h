@@ -27,6 +27,11 @@
 #define MOSI PIN_A1
 #define SS   PIN_B5
 
+#define SCK_ALT  PIN_C0
+#define MISO_ALT PIN_C1
+#define MOSI_ALT PIN_C2
+#define SS_ALT   PIN_C3
+
 // SPI_HAS_TRANSACTION means SPI has beginTransaction(), endTransaction(),
 // usingInterrupt(), and SPISetting(clock, bitOrder, dataMode)
 #define SPI_HAS_TRANSACTION 1
@@ -94,6 +99,9 @@ public:
   }
 private:
   void init_AlwaysInline(uint32_t clock, uint8_t bitOrder, uint8_t dataMode) __attribute__((__always_inline__)) {
+    init_AlwaysInline(clock, bitOrder, dataMode, 1);
+  }
+  void init_AlwaysInline(uint32_t clock, uint8_t bitOrder, uint8_t dataMode, uint8_t useAlternativePins) __attribute__((__always_inline__)) {
     // We find the fastest clock that is less than or equal to the
     // given clock rate.
     uint8_t clockDiv;
@@ -111,6 +119,21 @@ private:
 		clockDiv = SPI_CLOCK_DIV64;
 	} else {
 		clockDiv = SPI_CLOCK_DIV128;
+	}
+
+	if(useAlternativePins){
+		// Use the alternative SPI pins (PC0-SCK, PC1-MISO, PC2-MOSI, PC3-SS)
+		PORTMUX.CTRLB |= PORTMUX_SPI0_ALTERNATE_gc;
+		pinMode(SCK_ALT, OUTPUT);
+		pinMode(MOSI_ALT, OUTPUT);
+		pinMode(MISO_ALT, INPUT);
+	}else{
+		// Use normal SPI pins (PA1-MOSI, PA2-MISO, PA3-SCK, PA4-SS)
+		PORTMUX.CTRLB &= ~PORTMUX_SPI0_ALTERNATE_gc;
+
+		pinMode(SCK, OUTPUT);
+		pinMode(MOSI, OUTPUT);
+		pinMode(MISO, INPUT);
 	}
 
     // Pack into the SPISettings class
