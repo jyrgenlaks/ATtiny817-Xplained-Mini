@@ -107,21 +107,33 @@ void UART::print(int32_t num, uint8_t base){
 			write('0');
 		}
 	}else if(base == HEX){
+		uint8_t should_write = 0;
 		for(int i = 0; i < 8; i++){
 			uint8_t part = (   num >> (4*(7-i))   ) & 0x0F;
-
-			if(part < 10){
-				write('0' + part);
-			}else{
-				write('A' - 10 + part);
+			if(part > 0){
+				should_write = 1;
+			}
+			if(should_write){
+				if(part < 10){
+					write('0' + part);
+				}else{
+					write('A' - 10 + part);
+				}
 			}
 		}
 	}else if(base == BIN){
+		uint8_t should_write = 0;
 		for(int i = 0; i < 32; i++){
-			if(num & (1 << (31-i))){
-				write('1');
-			}else{
-				write('0');
+			int32_t val = num & (1 << (31-i));
+			if(val){
+				should_write = 1;
+			}
+			if(should_write){
+				if(val){
+					write('1');
+				}else{
+					write('0');
+				}
 			}
 		}
 	}
