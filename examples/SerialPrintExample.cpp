@@ -2,16 +2,15 @@
 
 int main(void) {
 	
-	Serial uart0;
-	uart0.begin(115200);
+	Serial.begin(115200);
 	
 	while (1) {
 		
-		if(uart0.available()){
-			char byte = uart0.read();
-			uart0.write(byte);
+		if(Serial.available()){
+			char byte = Serial.read();
+			Serial.write(byte);
 		}else{
-			uart0.println("asd");
+			Serial.println("asd");
 		}
 		delay(100);
 	}
