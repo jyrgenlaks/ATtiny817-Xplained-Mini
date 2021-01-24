@@ -27,8 +27,7 @@ void UART::begin(const uint32_t baud_rate){
 	PORTB.OUT &= ~(1 << 2);
 	PORTB.DIR |= (1 << 2);
 
-	// In theory, it should evaluate to 115 (@115200 baud), but for some reason mEDBG's CDC works better with 120
-	USART0.BAUD = ((((64 / SAMPLES_PER_BIT) * F_CPU) / baud_rate) * (1024 + SIGROW.OSC20ERR5V)) / 1024 + 5;
+	USART0.BAUD = (64ULL * F_CPU * (1024 + (int8_t)(SIGROW.OSC20ERR5V))) / SAMPLES_PER_BIT / baud_rate / 1024;
 	USART0.CTRLA = USART_RXCIE_bm;					// Enable RX interrupts
 	USART0.CTRLB = USART_TXEN_bm | USART_RXEN_bm;	// enable TX | enable RX
 	USART0.CTRLC = USART_CHSIZE_8BIT_gc;			// 8-bit characters
